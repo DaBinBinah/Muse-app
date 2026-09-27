@@ -33,10 +33,10 @@ Muse.ai 的沙盒是一台云上 Linux 虚拟机，平台会不定期**整机重
 
 ## 快速开始
 
-把本仓库 `SKILL.md` 的 raw 链接发给你的 Muse Agent：
+把下面这句话发给你的 Muse Agent：
 
 ```
-帮我安装 https://raw.githubusercontent.com/DaBinBinah/Muse-app/main/SKILL.md 并开始执行。
+帮我安装 https://github.com/DaBinBinah/Muse-app ，安装这个skills并开始执行。
 ```
 
 之后按手册节奏走，你只需在少数几个点介入：首次下载依赖时点几次平台审批卡（本方案**不自动批**）、微信登录的手机确认。部署完做一次手册自带的 60 秒模拟演练，然后就可以等真实重建来验收了。
