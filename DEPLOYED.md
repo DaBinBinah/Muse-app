@@ -16,6 +16,8 @@
 | 离线缓存 | `~/workspace/installers/deb-cache/`（142 包 145MB）+ `WeChatLinux_x86_64.deb` | 断网也能全量恢复 |
 | 设备指纹基线 | `machine-id.baseline`（回写）、`hostname.baseline`（只记录不回写） | 机器身份指纹假设，待真实重建验证 |
 
+**实战更新（2026-09-29）**：平台真实重建频率实测为**约每 2 小时一次**（一晚 5 次），恢复链路 5/5 全部自动成功。新增 xdotool 自动点 Log In（`DISPLAY=:99` + 回车键，已验证能自动点到 Confirm on Phone）。关键实验结论：**machine-id 回写不能消除手机确认**——手机端"直接通过、无需扫码"，但仍需点一下；hostname 为平台注入的常量（/etc/hostname 为空文件）、MAC 禁改，指纹路线到此关闭。当前水位：自动恢复 → 自动点登录 → 手机点一下确认。夜里无人值守仍未解决，终局方案待定（iLink 机器人 / 接受现状 / 自购 VPS）。
+
 **数据红线：`~/.xwechat`（微信登录态与聊天数据）任何环节绝不删除/清空/覆盖。**
 
 **状态（2026-09-28）：竣工。** 模拟测试（"重建后 cron 缺失"全链路）抓出并修复两个 `set -euo pipefail` 管道类 bug：① 空表时 `crontab -l` 退出 1 → pipefail 杀掉子 shell → 装了个空 crontab 且整个脚本 rc=1（真重建场景的 showstopper）；② 离线闭包误含互斥替代品导致误报。修复后四点验收全绿（cron 包装回 / 守护在跑 / crontab 恰好 1 行 / 微信无影响），rc=0、无 WARN。仅待真实重建做终极验收。
